@@ -12,7 +12,6 @@ class UserController extends Controller
         return response()->json(User::all());
     }
 
-    // POST /api/users
     public function store(Request $request)
     {
         $request->validate([
@@ -30,7 +29,6 @@ class UserController extends Controller
         return response()->json($user, 201);
     }
 
-    // GET /api/users/{id}
     public function show($id)
     {
         $user = User::find($id);
@@ -42,7 +40,6 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    // PUT/PATCH /api/users/{id}
     public function update(Request $request, $id)
     {
         $user = User::find($id);
@@ -56,7 +53,6 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    // DELETE /api/users/{id}
     public function destroy($id)
     {
         $user = User::find($id);
