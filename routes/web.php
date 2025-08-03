@@ -7,5 +7,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('posts', \App\Http\Controllers\PostController::class);
-Route::resource('users', UserController::class);
+// Route::apiResource('posts', \App\Http\Controllers\PostController::class)->middleware('api');
+// Route::post('/posts', [\App\Http\Controllers\PostController::class,'store'])->middleware('api');
+// Route::apiResource('users', UserController::class);
