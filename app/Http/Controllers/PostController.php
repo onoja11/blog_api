@@ -26,7 +26,7 @@ class PostController extends Controller
 
         $post = Post::create(
         $request->only(['title', 'content', 'priority', 'user_id']));   
-        foreach ($request->tag_id as $tagId) {
+        foreach ((array)$request->tag_id as $tagId) {
             $post->tags()->attach($tagId);
         }    
 
