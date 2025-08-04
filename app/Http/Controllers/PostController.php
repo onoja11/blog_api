@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        return response()->json(Post::all());
+        return response()->json(Post::orderBy('priority', 'desc')->get());
     }
 
     public function store(Request $request)
@@ -17,6 +17,7 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|string',
             'content' => 'required|string',
+            'priority' => 'integer|min:0|max:2',
             'user_id' => 'required|exists:users,id',
         ]);
 

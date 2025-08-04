@@ -25,6 +25,9 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
+        if (!$user  ) {
+            return response()->json(['message' => 'User creation failed'], 500);
+        }
 
         return response()->json($user, 201);
     }
