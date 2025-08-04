@@ -20,7 +20,8 @@ class PostFactory extends Factory
             //
             'title' => fake()->sentence,
             'content' => fake()->paragraph,
-            'user_id' => \App\Models\User::factory()
+            'user_id' => \App\Models\User::factory(),
+            'priority' => fake()->numberBetween(1, 2),
         ];
     }
 }

@@ -21,9 +21,15 @@ class PostController extends Controller
             'content' => 'required|string',
             'priority' => 'integer|min:0|max:2',
             'user_id' => 'required|exists:users,id',
+            'tag_id' => 'required|exists:tags,id',
         ]);
 
-        $post = Post::create($request->all());
+        $post = Post::create(
+        $request->only(['title', 'content', 'priority', 'user_id']));   
+        foreach ($request->tag_id as $tagId) {
+            $post->tags()->attach($tagId);
+        }    
+
 
         // return response()->json($post, 201);
         return new PostResource($post);
