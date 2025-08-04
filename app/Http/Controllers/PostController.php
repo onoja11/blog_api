@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        return response()->json(Post::orderBy('priority', 'desc')->get());
+        // return response()->json(Post::orderBy('priority', 'desc')->get());
+        return PostResource::collection(Post::orderBy('priority', 'desc')->get());
     }
 
     public function store(Request $request)
@@ -23,7 +25,8 @@ class PostController extends Controller
 
         $post = Post::create($request->all());
 
-        return response()->json($post, 201);
+        // return response()->json($post, 201);
+        return new PostResource($post);
     }
 
     public function show($id)
@@ -34,7 +37,8 @@ class PostController extends Controller
             return response()->json(['message' => 'Post not found'], 404);
         }
 
-        return response()->json($post);
+        // return response()->json($post);
+        return new PostResource($post);
     }
 
     public function update(Request $request, $id)
@@ -47,7 +51,8 @@ class PostController extends Controller
 
         $post->update($request->only(['title', 'content']));
 
-        return response()->json($post);
+        // return response()->json($post);
+        return new PostResource($post);
     }
 
     public function destroy($id)
