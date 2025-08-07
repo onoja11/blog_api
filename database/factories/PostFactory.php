@@ -22,6 +22,7 @@ class PostFactory extends Factory
             'content' => fake()->paragraph,
             'user_id' => \App\Models\User::factory(),
             'priority' => fake()->numberBetween(1, 2),
+            
         ];
     }
 }

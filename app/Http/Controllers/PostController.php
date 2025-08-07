@@ -21,7 +21,7 @@ class PostController extends Controller
             'content' => 'required|string',
             'priority' => 'integer|min:0|max:2',
             'user_id' => 'required|exists:users,id',
-            'tag_id' => 'required|exists:tags,id',
+            'tag_id' => 'nullable|exists:tags,id',
         ]);
 
         $post = Post::create(
@@ -71,6 +71,6 @@ class PostController extends Controller
 
         $post->delete();
 
-        return response()->json(['message' => 'Post deleted successfully']);
+        return response()->json(['message' => 'Post deleted successfully'],204);
     }
 }
