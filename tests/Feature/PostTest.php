@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Post;
+use App\Models\User;
 use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class);
@@ -37,6 +38,15 @@ it('can delete a post', function () {
     $response = $this->deleteJson("/api/posts/{$post->id}");
     $response->assertStatus(204);
     $this->assertDatabaseMissing('posts', ['id' => $post->id]);
+});
+
+test('only authenticated user cannot create posts', function(){
+    $user = User::factory()->create();
+    $postData = Post::factory()->make()->toArray();
+    $response = $this->actingAs($user, 'sanctum')
+                ->postJson('api/posts',$postData);
+    $response->assertStatus(201);
+    $this->assertDatabaseHas('posts',$postData);
 });
 
    
