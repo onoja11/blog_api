@@ -11,7 +11,7 @@ class PostController extends Controller
     public function index()
     {
         // return response()->json(Post::orderBy('priority', 'desc')->get());
-        return PostResource::collection(Post::orderBy('priority', 'desc')->get());
+        return PostResource::collection(Post::with(['user','tags'])->orderBy('priority', 'desc')->get());
     }
 
     public function store(Request $request)
@@ -37,7 +37,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::with(['user','tags'])->find($id);
 
         if (!$post) {
             return response()->json(['message' => 'Post not found'], 404);
